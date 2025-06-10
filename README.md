@@ -10,7 +10,7 @@ Python standard library.
 
 ### Usage
 
-Prepare a CSV file with at least a `close` column, then run:
+Prepare a CSV file with a column named `close` (case-insensitive), then run:
 
 ```bash
 python -m stock_analysis.analysis path/to/data.csv --window 10

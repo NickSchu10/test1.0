@@ -6,13 +6,30 @@ from typing import List
 
 
 def read_prices(csv_path: Path) -> List[float]:
-    """Read closing prices from a CSV file. Assumes a header with 'close'."""
+    """Read closing prices from a CSV file.
+
+    The column containing closing prices is matched in a case-insensitive
+    manner so both ``close`` and ``Close`` are accepted.
+    """
     prices = []
     with csv_path.open() as f:
         reader = csv.DictReader(f)
+
+        # Determine the correct column name for closing prices
+        close_field = None
+        if reader.fieldnames:
+            for field in reader.fieldnames:
+                if field.lower() == "close":
+                    close_field = field
+                    break
+
+        if close_field is None:
+            # If no appropriate column is found, return empty list
+            return prices
+
         for row in reader:
             try:
-                price = float(row["close"])
+                price = float(row[close_field])
             except (KeyError, ValueError):
                 continue
             prices.append(price)
