@@ -18,3 +18,7 @@ python -m stock_analysis.analysis path/to/data.csv --window 10
 
 This will print the moving average for each day after the first
 `window` observations.
+
+## Disclaimer
+
+This project provides educational examples only and should not be considered financial advice.
